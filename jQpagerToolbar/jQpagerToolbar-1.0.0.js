@@ -1,4 +1,3 @@
-
 //http://jshint.com/
 /*
 @todo sincronize mapValues to the ui better, events chains?
