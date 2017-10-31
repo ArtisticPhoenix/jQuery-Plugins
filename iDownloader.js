@@ -1,4 +1,5 @@
 (function($){
+	
 	/**
      * PLUGIN BRAINS
      * setcookie('iDownloader', 1, null, '/');
