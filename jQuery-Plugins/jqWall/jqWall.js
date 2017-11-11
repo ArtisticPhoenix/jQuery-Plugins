@@ -296,7 +296,7 @@
 			}
 			
 			var callback = function( matches, cache ){
-				if( typeof cache == 'object' ){
+				if( typeof cache == 'array' ){
 					self.setCache( cache );
 				}
 
