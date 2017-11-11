@@ -299,6 +299,7 @@
 				if( typeof cache == 'array' ){
 					self.setCache( cache );
 				}
+				
 
 				var html = '';
 				if( matches.length ){
