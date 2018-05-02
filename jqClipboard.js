@@ -1,6 +1,6 @@
 (function($){
 	/**
-     * Save to clipboard (using a hidden textarea )
+     * PLUGIN BOILERPLATE
 	 */
 	 
 	/* Don't forget to name the plugin here */
