@@ -5,53 +5,17 @@
      *  
      * INSTRUCTIONS:
      * 
-     * To init, call...
-     * $('selector').myPluginName(options) 
-     * 
-     * Some time later...  
-     * $('selector').myPluginName('myActionMethod')
-	 * 
-	 * Some time even later... (change options during runtime)
-     * $('selector').myPluginName(options) 
-	 *
-     * DETAILS:
-     * Once init with $('...').myPluginName({options}), you can call
-     * $('...').myPluginName('myAction') where myAction is a method in this
-     * class.
-     * 
-     * The scope, ie "this", **is the object itself**.  The jQuery match is stored
-     * in the property $this.  In general this value ($this) should be returned to allow
-     * for jQuery chaining by the user.
-     *  
-     * Methods which begin with underscore are private and not 
-     * publicly accessible.
-     * 
-     * CHECK IT OUT...
-     * var mySelecta = 'DIV';
-     * jQuery(mySelecta).myPluginName();
-     * jQuery(mySelecta).myPluginName('publicMethod');
-     * jQuery(mySelecta).myPluginName('_privateMethod'); - throws error for methods starting with "_" 
 	 */
 	 
 	/* Don't forget to name the plugin here */
 	var NAMESPACE = 'jqKeyEvents';
 
-	/**
-	 * Generic plugin wraper class ( for scope/data resolution && data saving/loading -via- $(el).data(Plugin))
-	 */
 	var Plugin = function ( target, methodOrOptions, index) {
 		/**
 		* back reference to target object
 		*/
 		this.$this = $(target);
-		/**
-		* private option collection, not accessable outside of this instance (changes not shared across plugins)
-		*/
 
-		/**
-		* public option collection, accessable outside of this instance by $(el).pluginName({param:value}); (not shared across plugins)
-		* options can be set on _init or during runtime
-		*/
 		this._options = {
 			listen			: ['keyup', 'keydown', 'keypress'],
 			eventPrefix		: {keyup : '.keyup.', keydown : '.keydown.', keypress : '.keypress.'},
@@ -69,18 +33,7 @@
 		
 		return this; 
 	} //end plugin class
-	/**
-	* GLOBAL PLUGIN SPACE
-	* all data in this area is shared between plugin instances
-	* declare static vars here - normal in _options(public) _defaults(private)
-	*/
-	
-	/** STATIC PROPERTIES - or shared props,
-	* these exist across multiple plugin instance access by simply STATIC.propname
-	* (are not accessible in global scope) 
-	* - although you could easily split this (suggested PUBLIC_STATIC & PRIVATE_STATIC) and 
-	* add a $.extend function as (_update) does to allow access such as $(el).pluginName('setStatic', options);
-	*/
+
 	Plugin.prototype._defaults = {
 		keyboardKeys	: {
 		/*	1 : "mouseLeft", 2 : "mouseMiddle", 3 : "mouseRight", */
@@ -97,11 +50,6 @@
 		events : ['keyup', 'keydown', 'keypress']
 	};
 
-	/**
-	* PRIVATE METHODS -
-	* these are accessed this._methodName();
-	* no external access (outside plugin)
-	*/
 	var _private = {
 		_init : function(target, options, index){
 			//callback to options beforeInit
@@ -142,12 +90,6 @@
 	
 	$.extend( Plugin.prototype, _private);
 	
-	/**
-	* PUBLIC METHODS -
-	* these are accessed as this.methodName()
-	* basicly the same as above, with externall access as normal $(el).pluginName('methodName', arg);
-	* as noted on the method wrappers scope you should return this.$this to maintain chainablillity from public methods
-	*/
 	var _public = {
 			destroy : function () {
 				var $this = this.$this;
