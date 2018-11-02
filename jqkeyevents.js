@@ -5,6 +5,15 @@
      *  
      * INSTRUCTIONS:
      * 
+     * $(body).jqKeyEvents({listen:'keyup'});
+     * 
+     * $(body).bind('jqKeyEvents.keyup.backspace',function(event, jqKeyEvents, key, mods){
+     *   //event
+     *   //jqKeyEvents = this
+     *   //key = backspace
+     * 	 //mods = mods.altKey | mods.ctrlKey | shiftKey
+     * });
+     * 
 	 */
 	 
 	/* Don't forget to name the plugin here */
