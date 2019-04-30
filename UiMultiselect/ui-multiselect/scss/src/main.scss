@@ -1,0 +1,47 @@
+.ui-multiselect
+{
+	box-sizing: border-box;
+	width: 400px;
+
+	.ui-multiselect-selections
+	{
+		> div
+		{
+			float: left;
+			margin: 2px;
+			padding: 1px 2px;
+		}
+		> span
+		{
+			display: block;
+    		overflow: hidden;
+    		padding: 0 1px;
+		}
+		.clear-fix
+		{
+			float: none;
+			clear: both;
+			margin: 0;
+			padding: 0;
+			height: 1px;
+			width: 100%;
+		}
+	}
+	.ui-multiselect-search
+	{
+		border: none;
+		background-color: transparent;
+		outline: none;
+		width: 100%;
+		margin: 3px;
+	}
+	.ui-multiselect-choices
+	{
+		position: relative;
+		.ui-menu-item
+		{
+			padding-left: 20px;
+		}
+		
+	}
+}
