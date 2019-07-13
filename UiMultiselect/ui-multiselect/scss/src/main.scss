@@ -1,21 +1,37 @@
+#http://localhost/SCSS?config=C:\UniserverZ\www\jQuery-Plugins\UiMultiselect\ui-multiselect\scss\scss-config.php
 .ui-multiselect
 {
 	box-sizing: border-box;
-	width: 400px;
+	width: 100%;
 
 	.ui-multiselect-selections
 	{
-		> div
+		padding: 2px 3px;
+		.ui-multiselect-selected
 		{
 			float: left;
-			margin: 2px;
+			margin-right: 5px;
 			padding: 1px 2px;
 		}
-		> span
+		.ui-multiselect-search-wrapper
 		{
 			display: block;
     		overflow: hidden;
-    		padding: 0 1px;
+    		padding: 3px;
+    		.ui-multiselect-search
+			{
+				border: none;
+				background-color: transparent;
+				outline: none;
+				width: 101%;
+				margin: 0;
+				padding: 0;
+				.ui-multiselect-ruler
+				{
+					display:none;
+					padding:0px;
+				}
+			}
 		}
 		.clear-fix
 		{
@@ -26,15 +42,13 @@
 			height: 1px;
 			width: 100%;
 		}
+		.ui-multiselect-ruler
+		{
+			padding: 0;
+			display: none;
+		}
 	}
-	.ui-multiselect-search
-	{
-		border: none;
-		background-color: transparent;
-		outline: none;
-		width: 100%;
-		margin: 3px;
-	}
+
 	.ui-multiselect-choices
 	{
 		position: relative;

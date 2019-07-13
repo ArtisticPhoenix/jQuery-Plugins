@@ -1,16 +1,31 @@
 .ui-multiselect {
   box-sizing: border-box;
-  width: 400px;
+  width: 100%;
 }
-.ui-multiselect .ui-multiselect-selections > div {
+.ui-multiselect .ui-multiselect-selections {
+  padding: 2px 3px;
+}
+.ui-multiselect .ui-multiselect-selections .ui-multiselect-selected {
   float: left;
-  margin: 2px;
+  margin-right: 5px;
   padding: 1px 2px;
 }
-.ui-multiselect .ui-multiselect-selections > span {
+.ui-multiselect .ui-multiselect-selections .ui-multiselect-search-wrapper {
   display: block;
   overflow: hidden;
-  padding: 0 1px;
+  padding: 3px;
+}
+.ui-multiselect .ui-multiselect-selections .ui-multiselect-search-wrapper .ui-multiselect-search {
+  border: none;
+  background-color: transparent;
+  outline: none;
+  width: 101%;
+  margin: 0;
+  padding: 0;
+}
+.ui-multiselect .ui-multiselect-selections .ui-multiselect-search-wrapper .ui-multiselect-search .ui-multiselect-ruler {
+  display: none;
+  padding: 0px;
 }
 .ui-multiselect .ui-multiselect-selections .clear-fix {
   float: none;
@@ -20,14 +35,9 @@
   height: 1px;
   width: 100%;
 }
-.ui-multiselect .ui-multiselect-search {
-  border: none;
-  background-color: transparent;
-  outline: none;
-  width: 100%;
-  margin: 3px;
-  text-indent: 0.5em;
-  text-align: right;
+.ui-multiselect .ui-multiselect-selections .ui-multiselect-ruler {
+  padding: 0;
+  display: none;
 }
 .ui-multiselect .ui-multiselect-choices {
   position: relative;
