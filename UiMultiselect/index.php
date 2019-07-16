@@ -1,3 +1,4 @@
+<?php shell_exec('php C:\UniServerZ\www\SCSS\index.php  --config="C:\UniserverZ\www\jQuery-Plugins\UiMultiselect\ui-multiselect\scss\scss-config.php"') ?>
 <!doctype html>
 <html>
 	<head>
@@ -89,14 +90,14 @@
         
         <select name="foo" multiple="multiple" >
         	<optgroup label="Theropods">
-                <option>Tyrannosaurus</option>
-                <option>Velociraptor</option>
-                <option>Deinonychus</option>
+                <option value="Tyrannosaurus" >Tyrannosaurus</option>
+                <option value="Velociraptor">Velociraptor</option>
+                <option value="Deinonychus">Deinonychus</option>
             </optgroup>
             <optgroup label="Sauropods">
-                <option>Diplodocus</option>
-                <option>Saltasaurus</option>
-                <option>Apatosaurus</option>
+                <option value="Diplodocus">Diplodocus</option>
+                <option value="Saltasaurus">Saltasaurus</option>
+                <option value="Apatosaurus">Apatosaurus</option>
             </optgroup>
         </select>
         
@@ -104,14 +105,14 @@
         
         <select name="bar" multiple="multiple" >
         	<optgroup label="Theropods">
-                <option>Tyrannosaurus</option>
-                <option>Velociraptor</option>
-                <option>Deinonychus</option>
+                <option value="Tyrannosaurus" >Tyrannosaurus</option>
+                <option value="Velociraptor">Velociraptor</option>
+                <option value="Deinonychus">Deinonychus</option>
             </optgroup>
             <optgroup label="Sauropods">
-                <option>Diplodocus</option>
-                <option>Saltasaurus</option>
-                <option>Apatosaurus</option>
+                <option value="Diplodocus">Diplodocus</option>
+                <option value="Saltasaurus">Saltasaurus</option>
+                <option value="Apatosaurus">Apatosaurus</option>
             </optgroup>
         </select>
         

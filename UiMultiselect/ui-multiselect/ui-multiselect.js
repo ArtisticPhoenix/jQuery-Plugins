@@ -36,6 +36,8 @@
 
 	//plugin constructor
 	function Plugin( target, options ) {
+		this.body,this.menu;
+		
 		this.element = $(target);
 		
 		//this.element.css('display', 'none');
@@ -116,7 +118,26 @@
 				'</div> <!--\.ui-multiselect -->'
 			].join("\n");
 			
-			this.element.after(html);
+			this.body = $(html).insertAfter(this.element);
+			this.menu = this.body.find('.ui-menu');
+			
+			this._buildMenu();
+		},
+		_buildMenu : function() {
+			var self = this;
+			var options = self.element.find('optgroup, option');
+			var html = '';
+			
+			options.each(function(){
+				if($(this).is('optgroup')){
+					html += '<li class="ui-selectmenu-optgroup ui-menu-divider" >'+$(this).attr('label')+'</li>';
+				}else{
+					//ui-state-active
+					html += '<li class="ui-menu-item" ><div class="ui-menu-item-wrapper" data-value="'+$(this).attr('value')+'" >'+$(this).text()+'</div></li>';
+				}
+			});
+
+			self.menu.html(html);
 		},
 		_regesterEvents : function() {
 			var self = this;

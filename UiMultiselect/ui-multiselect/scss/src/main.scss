@@ -1,12 +1,11 @@
-#http://localhost/SCSS?config=C:\UniserverZ\www\jQuery-Plugins\UiMultiselect\ui-multiselect\scss\scss-config.php
 .ui-multiselect
 {
 	box-sizing: border-box;
 	width: 100%;
-
+	font-size: 16px;
 	.ui-multiselect-selections
 	{
-		padding: 2px 3px;
+		padding: 1px 3px;
 		.ui-multiselect-selected
 		{
 			float: left;
@@ -58,4 +57,8 @@
 		}
 		
 	}
+}
+
+.ui-selectmenu-menu{
+	display:block;
 }

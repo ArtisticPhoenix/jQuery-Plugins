@@ -1,9 +1,10 @@
 .ui-multiselect {
   box-sizing: border-box;
   width: 100%;
+  font-size: 16px;
 }
 .ui-multiselect .ui-multiselect-selections {
-  padding: 2px 3px;
+  padding: 1px 3px;
 }
 .ui-multiselect .ui-multiselect-selections .ui-multiselect-selected {
   float: left;
@@ -44,4 +45,7 @@
 }
 .ui-multiselect .ui-multiselect-choices .ui-menu-item {
   padding-left: 20px;
+}
+.ui-selectmenu-menu {
+  display: block;
 }
