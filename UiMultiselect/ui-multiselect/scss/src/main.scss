@@ -5,31 +5,32 @@
 	font-size: 16px;
 	.ui-multiselect-selections
 	{
-		padding: 1px 3px;
+		padding: 2px 0;
+		cursor: text;
 		.ui-multiselect-selected
 		{
 			float: left;
-			margin-right: 5px;
-			padding: 1px 2px;
+			margin: 1px 2px;
+			padding: 2px 2px;
+			.ui-multiselect-close
+			{
+				cursor: pointer;
+			}
 		}
 		.ui-multiselect-search-wrapper
 		{
 			display: block;
     		overflow: hidden;
     		padding: 3px;
+    		position: relative;
     		.ui-multiselect-search
 			{
 				border: none;
 				background-color: transparent;
-				outline: none;
+				outline: 0;
 				width: 101%;
 				margin: 0;
 				padding: 0;
-				.ui-multiselect-ruler
-				{
-					display:none;
-					padding:0px;
-				}
 			}
 		}
 		.clear-fix
@@ -41,24 +42,20 @@
 			height: 1px;
 			width: 100%;
 		}
-		.ui-multiselect-ruler
-		{
-			padding: 0;
-			display: none;
-		}
 	}
 
 	.ui-multiselect-choices
 	{
-		position: relative;
-		.ui-menu-item
+		position: relative !important;
+		.ui-menu
 		{
-			padding-left: 20px;
+			position: absolute !important;
+			width: 100%;
+			.ui-menu-item
+			{
+				padding-left: 20px;
+			}
 		}
-		
 	}
 }
 
-.ui-selectmenu-menu{
-	display:block;
-}

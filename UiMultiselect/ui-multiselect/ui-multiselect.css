@@ -4,29 +4,30 @@
   font-size: 16px;
 }
 .ui-multiselect .ui-multiselect-selections {
-  padding: 1px 3px;
+  padding: 2px 0;
+  cursor: text;
 }
 .ui-multiselect .ui-multiselect-selections .ui-multiselect-selected {
   float: left;
-  margin-right: 5px;
-  padding: 1px 2px;
+  margin: 1px 2px;
+  padding: 2px 2px;
+}
+.ui-multiselect .ui-multiselect-selections .ui-multiselect-selected .ui-multiselect-close {
+  cursor: pointer;
 }
 .ui-multiselect .ui-multiselect-selections .ui-multiselect-search-wrapper {
   display: block;
   overflow: hidden;
   padding: 3px;
+  position: relative;
 }
 .ui-multiselect .ui-multiselect-selections .ui-multiselect-search-wrapper .ui-multiselect-search {
   border: none;
   background-color: transparent;
-  outline: none;
+  outline: 0;
   width: 101%;
   margin: 0;
   padding: 0;
-}
-.ui-multiselect .ui-multiselect-selections .ui-multiselect-search-wrapper .ui-multiselect-search .ui-multiselect-ruler {
-  display: none;
-  padding: 0px;
 }
 .ui-multiselect .ui-multiselect-selections .clear-fix {
   float: none;
@@ -36,16 +37,50 @@
   height: 1px;
   width: 100%;
 }
-.ui-multiselect .ui-multiselect-selections .ui-multiselect-ruler {
-  padding: 0;
-  display: none;
-}
 .ui-multiselect .ui-multiselect-choices {
-  position: relative;
+  position: relative !important;
 }
-.ui-multiselect .ui-multiselect-choices .ui-menu-item {
+.ui-multiselect .ui-multiselect-choices .ui-menu {
+  position: absolute !important;
+  width: 100%;
+}
+.ui-multiselect .ui-multiselect-choices .ui-menu .ui-menu-item {
   padding-left: 20px;
 }
-.ui-selectmenu-menu {
+.ui-multiselect-loader {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 24px;
+  height: 24px;
+}
+.ui-multiselect-loader div {
+  box-sizing: border-box;
   display: block;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  margin: 2px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  animation: ui-multiselect-loader 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: currentColor transparent transparent transparent;
+}
+.ui-multiselect-loader div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.ui-multiselect-loader div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.ui-multiselect-loader div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes ui-multiselect-loader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
