@@ -16,6 +16,16 @@
 			{
 				cursor: pointer;
 			}
+			&.ui-state-disabled
+			{
+				background: #e9ecef;
+  				border: 1px solid #666;
+			}
+			&.ui-state-readonly
+			{
+				background: #9dccfb;
+   				border: 1px solid #666;
+			}
 		}
 		.ui-multiselect-search-wrapper
 		{

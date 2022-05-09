@@ -3,10 +3,23 @@
   width: 100%;
   font-size: 16px;
 }
+
 .ui-multiselect .ui-multiselect-selections {
-  padding: 2px 0;
+  /*padding: 2px 0;*/
   cursor: text;
 }
+
+.ui-multiselect .ui-multiselect-selections .ui-multiselect-selected.ui-state-disabled{
+  background: #e9ecef;
+  border: 1px solid #666;
+}
+
+.ui-multiselect .ui-multiselect-selections .ui-multiselect-selected.ui-state-readonly{
+   background: #9dccfb;
+   border: 1px solid #666;
+}
+
+
 .ui-multiselect .ui-multiselect-selections .ui-multiselect-selected {
   float: left;
   margin: 1px 2px;
@@ -21,13 +34,9 @@
   padding: 3px;
   position: relative;
 }
-.ui-multiselect .ui-multiselect-selections .ui-multiselect-search-wrapper .ui-multiselect-search {
-  border: none;
+.ui-multiselect .ui-multiselect-selections .ui-multiselect-search-wrapper .ui-multiselect-search { 
   background-color: transparent;
-  outline: 0;
-  width: 101%;
-  margin: 0;
-  padding: 0;
+  width: 101%
 }
 .ui-multiselect .ui-multiselect-selections .clear-fix {
   float: none;

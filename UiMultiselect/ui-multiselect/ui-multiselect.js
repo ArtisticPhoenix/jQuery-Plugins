@@ -19,8 +19,9 @@
 			created			: function(){},
 	    	open 			: function(event, ui){}, //function ran before opening the menu
 	  		close 			: function(event, ui){}, //function ran before closing the menu
-	  		disabled 		: null, //is the element disabled
 	  		source 			: null, //source of the menu data
+			clearOnChoose   : true, //clear the text from the search input when an item is chosen
+			afterChoose		: function(value, resize, event){},
 	  		sort			: function(data, order){ //sort function for data
 	  			data = typeof data == 'object' ? [].slice.call(data) : data;
 	  			
@@ -112,14 +113,22 @@
 	    },
 	    /**
 		 * 
-		 * @param obj el - the $(<option>) you want to choose
+		 * @param obj el - the $(<option>) you want
 		 */
 	    _createSelection : function(el, resize){
 	    	if(resize == undefined) resize = true;
 	    	
 	    	if(!this.body.find('.ui-multiselect-selected[data-value="'+el.attr('value')+'"]').length){
+		
+				var ui_state = 'ui-state-active';
+				if(this.element.prop('disabled')){
+					ui_state = 'ui-state-disabled';
+				}else if(this.element.prop('readonly')){
+					ui_state = 'ui-state-readonly';
+				}
+
 		    	this.searchWrapper.before([
-		    		'<div data-value="'+el.attr('value')+'" class="ui-corner-all ui-state-active ui-multiselect-selected">',
+		    		'<div data-value="'+el.attr('value')+'" class="ui-corner-all ui-multiselect-selected '+ui_state+'">',
 		    			el.text(),
 		    			'<span class="ui-button-icon ui-icon ui-icon-closethick ui-multiselect-close" title="remove" ></span>',
 		    		'</div>'
@@ -130,7 +139,7 @@
 	    }, 
 	    /**
 		 * 
-		 * @param obj el - the $(<option>) you want to choose
+		 * @param obj el - the $(<option>) you want
 		 */
 	    _deleteSelection : function(el, resize, event){
 	    	if(resize == undefined) resize = true;
@@ -167,24 +176,21 @@
 	    	$.each(data, function(i,v){    		
 	    		if('' === v.value && self.options.hideEmptyOption) return true; //continue the loop
 	    		
-	    		var disabled = '';
-	    		//@todo:
-	    		/*if(v.disabled){
-	    			disabled = 'ui-state-disabled';
-	    		}*/
-	
 	    		var html = [
-					'<li class="ui-menu-item '+disabled+'" data-value="'+v.value+'" >',
+					'<li class="ui-menu-item" data-value="'+v.value+'" >',
 						'<div class="ui-menu-item-wrapper"  >'+v.label+'</div>',
 				    '</li>'
 			    ].join("\n");
 	    		
 	    		if(v.optgroup){
-	    			var optgroup = self.menu.find('.optgroup-'+v.optgroup);
+					var optclass = v.optgroup;
+					optclass = optclass.replace(/[^-0-9a-zA-z_]/g, '');
+					
+	    			var optgroup = self.menu.find('.optgroup-'+optclass);
 	    			
 	    			if(!optgroup.length){
-	    				self.menu.append('<li class="ui-selectmenu-optgroup ui-menu-divider optgroup-'+v.optgroup+'" >'+v.optgroup+'</li>');
-	    				optgroup = self.menu.find('.optgroup-'+v.optgroup);
+	    				self.menu.append('<li class="ui-selectmenu-optgroup ui-menu-divider optgroup-'+optclass+'" >'+v.optgroup+'</li>');
+	    				optgroup = self.menu.find('.optgroup-'+optclass);
 	    			}
 	    			
 	    			var sibling = getLastSibling(optgroup, '.ui-menu-item');
@@ -203,10 +209,15 @@
 	    		
 	    		var item = self.menu.find('.ui-menu-item[data-value="'+v.value+'"]');
 	    		
-	    		if(v.disable || v.readonly){
+	    		if(v.disable){
 					item.removeClass('ui-state-active');
 					item.addClass('ui-state-disabled');
-	    		}
+					return;
+	    		}else if(v.readonly){
+					item.removeClass('ui-state-active');
+					item.addClass('ui-state-readonly');
+					return;
+				}
 	    		
 	    		var el = self.element.find('option[value="'+v.value+'"]');
 	    		if(!el.length) el = false;
@@ -242,7 +253,7 @@
 			var self = this;
 			
 			this.body.on('mouseenter', '.ui-menu-item', function(){
-				if(!$(this).hasClass('ui-state-disabled')) $(this).addClass('ui-state-active');
+				if(!$(this).hasClass('ui-state-disabled') && !$(this).hasClass('ui-state-readonly')) $(this).addClass('ui-state-active');
 			});
 	
 			this.body.on('mouseleave', '.ui-menu-item', function(){
@@ -257,6 +268,8 @@
 			});	
 			
 			this.body.on('click', '.ui-multiselect-close', function(event){
+				if(self.element.prop('disabled') || self.element.prop('readonly')) return;
+				
 				self.dismiss($(this).closest('.ui-multiselect-selected').data('value'), true, event);
 			});	
 			
@@ -453,29 +466,79 @@
 		},
 		disable : function(disabled){	
 			if(disabled){
-				this.element.prop('disabled', true);
-				this.body.addClass('ui-state-disabled');
-				this.searchWraper.find('.ui-multiselect-search').prop('disabled', true);
+				this.setState('disabled');	
 			}else{
-				this.element.prop('disabled', false)
-				this.body.removeClass('ui-state-disabled');
-				this.searchWraper.find('.ui-multiselect-search').prop('disabled', false);
+				this.setState('active');
 			}
 			
 		},
 		isDisabled : function(){
 			return this.element.prop('disabled');
 		},
-		/*readonly : function(readonly){
+		readonly : function(readonly){	
 			if(readonly){
-				this.element.prop('disabled', true);
-				this.body.addClass('ui-state-disabled');
-				this.searchWraper.find('.ui-multiselect-search').prop('disabled', true);
-			}
+				this.setState('readonly');	
+			}else{
+				this.setState('active');
+			}	
 		},
 		isReadonly : function(){
 			return this.element.prop('readonly');
-		},*/
+		},
+		setState : function( state ){
+			var selections = this.body.find('.ui-multiselect-selected');
+			var search_element = this.searchWraper.find('.ui-multiselect-search');
+				
+			switch(state){
+				case 'disabled':
+					this.element.prop('readonly', false);
+					this.element.prop('disabled', true);
+					
+					this.body.removeClass('ui-state-active');
+					this.body.removeClass('ui-state-readonly');
+					this.body.addClass('ui-state-disabled');
+					
+					selections.removeClass('ui-state-active');
+					selections.removeClass('ui-state-readonly');
+					selections.addClass('ui-state-disabled');
+					
+					this.element.prop('readonly', false);
+					search_element.prop('disabled', true);
+				
+				break;
+				case 'readonly':
+					this.element.prop('readonly', true);
+					this.element.prop('disabled', false);
+					
+					this.body.removeClass('ui-state-active');
+					this.body.removeClass('ui-state-disabled');
+					this.body.addClass('ui-state-readonly');
+					
+					selections.removeClass('ui-state-active');
+					selections.removeClass('ui-state-disabled');
+					selections.addClass('ui-state-readonly');
+					
+					this.element.prop('readonly', true);
+					search_element.prop('disabled', false);
+				break;
+				case 'active':
+				default:
+					this.element.prop('readonly', false);
+					this.element.prop('disabled', false);
+					
+					this.body.removeClass('ui-state-disabled');
+					this.body.removeClass('ui-state-readonly');
+					this.body.addClass('ui-state-active');
+					
+					selections.removeClass('ui-state-disabled');
+					selections.removeClass('ui-state-readonly');
+					selections.addClass('ui-state-active');
+					
+					this.element.prop('readonly', false);
+					search_element.prop('disabled', false);
+				break;
+			}		
+		},
 		/**
 		 * @param string value
 		 * @return return object|boolean - return the <option> assocated with a given value or false
@@ -490,10 +553,9 @@
 		},
 		/**
 		 * 
-		 * @param obj el - the $(<option>) you want to choose
+		 * @param obj el - the $(<option>) you want
 		 */
 		choose : function(value, resize, event){
-			
 			if(resize == undefined) resize = true;
 			
 			var el = this.element.find('option[value="'+value+'"]');
@@ -515,6 +577,10 @@
 				var em = this.getOptionElementByValue('');
 				if(em) em.prop('selected', false);
 			}
+			
+			if(this.options.clearOnChoose) this.searchWrapper.find('.ui-multiselect-search').val('');
+			
+			this.options.afterChoose.apply(this,  arguments );
 		},
 		selected : function (selected){
 			var self = this;
