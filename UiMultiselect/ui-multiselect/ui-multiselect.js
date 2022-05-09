@@ -103,9 +103,7 @@
 			this.body = $(html).insertAfter(this.element);
 			
 			if(this.options.width) this.body.css('width', this.options.width);
-			
-			
-			
+
 			this.menu = this.body.find('.ui-menu');
 			this.searchWrapper = this.body.find('.ui-multiselect-search-wrapper');
 			
